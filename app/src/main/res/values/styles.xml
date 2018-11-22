@@ -11,8 +11,6 @@
         <item name="android:windowBackground">@mipmap/astart</item>
         <!--colorAccent CheckBox，RadioButton，SwitchCompat等一般控件的选中效果默认采用该颜色-->
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:statusBarColor">@color/mystatus_bar_color</item>
-        <!--statusBarColor 状态栏颜色，默认使用colorPrimaryDark-->
 
         <!--navigationBarColor 底部栏颜色-->
         <!--colorForeground 应用的前景色，ListView的分割线，switch滑动区默认使用该颜色-->
