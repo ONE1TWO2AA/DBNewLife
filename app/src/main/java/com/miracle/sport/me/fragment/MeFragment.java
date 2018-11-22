@@ -129,7 +129,6 @@ public class MeFragment extends BaseFragment<F4Ddz2Binding> {
             protected void onSuccess(ZResponse<List<Football>> zResponse) {
                 if (zResponse != null && zResponse.getTotal() > 0) {
                     binding.ibBailManage.setText(MessageFormat.format("我的收藏{0}", zResponse.getTotal()));
-
                 }
             }
         });
