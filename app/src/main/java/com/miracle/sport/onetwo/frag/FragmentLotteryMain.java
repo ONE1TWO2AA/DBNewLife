@@ -36,6 +36,8 @@ import com.miracle.base.switcher.GameActivity;
 import com.miracle.base.util.ContextHolder;
 import com.miracle.base.util.DisplayUtil;
 import com.miracle.databinding.FragmentCpMainTopBinding;
+import com.miracle.sport.SportService;
+import com.miracle.sport.home.bean.ChannerlKey;
 import com.miracle.sport.onetwo.act.OneFragActivity;
 import com.miracle.sport.onetwo.netbean.FSServer;
 import com.miracle.sport.onetwo.netbean.FishType;
@@ -178,28 +180,38 @@ public class FragmentLotteryMain extends HandleFragment<FragmentCpMainTopBinding
         });
     }
     private void LoadDataHSuserBarType(){
-        ZCallback zCallback = new ZCallback<ZResponse<List<FishType>>>(subFrag.binding.swipeRefreshLayout){
+//        RequestUtil.cachePrior(ZClient.getService(SportService.class).getSearchKeys(), new ZCallback<ZResponse<List<ChannerlKey>>>("CHANNER1key") {
+//            @Override
+//            protected void onSuccess(ZResponse<List<ChannerlKey>> zResponse) {
+//                mNetChannels = zResponse.getData();
+//                initChannelData();
+//                initChannelFragments();
+//                setListener();
+//            }
+//        });
+
+        ZCallback zCallback = new ZCallback<ZResponse<List<ChannerlKey>>>(subFrag.binding.swipeRefreshLayout){
             @Override
-            protected void onSuccess(ZResponse<List<FishType>> zResponse) {
+            protected void onSuccess(ZResponse<List<ChannerlKey>> zResponse) {
                 LinearLayout main_frag_hs_ll = topBinding.getRoot().findViewById(R.id.main_frag_hs_ll);
                 main_frag_hs_ll.removeAllViews();
-                for(FishType item : zResponse.getData()){
+                for(ChannerlKey item : zResponse.getData()){
                     //排除 ‘推荐’
-                    if(1 != item.getId())
-                        addToHS(item.getName(),item.getId(),item.getPic());
+                    if(1 != Integer.parseInt(item.getId()))
+                        addToHS(item.getName(),Integer.parseInt(item.getId()),item.getPic());
                 }
             }
         };
 
         zCallback.setCachKey("homepage_fishtype");
-        RequestUtil.cacheUpdate(ZClient.getService(FSServer.class).fishType(), zCallback);
+        RequestUtil.cacheUpdate(ZClient.getService(SportService.class).getSearchKeys(), zCallback);
     }
 
     private void addToHS(final String str, final int key, String picUrl){
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.main_frag_hs1_item,null);
         ImageView iv = view.findViewById(R.id.main_farg_hs1_iv);
         ((TextView)view.findViewById(R.id.main_farg_hs1_tv1)).setText(str);
-        GlideApp.with(mContext).load(picUrl).placeholder(R.mipmap.defaule_img).into(iv);
+        GlideApp.with(mContext).load(picUrl).into(iv);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -219,9 +231,9 @@ public class FragmentLotteryMain extends HandleFragment<FragmentCpMainTopBinding
     }
 
     private void initMard(List<Spanned> list) {
-        mardatas.add(Html.fromHtml("<font color=\"#cc0000\">游戏资讯</font>已更新"));
-        mardatas.add(Html.fromHtml("<font color=\"#cc0000\">炮台大全</font>已更新"));
-        mardatas.add(Html.fromHtml("<font color=\"#cc0000\">游戏技巧</font>已更新"));
+        mardatas.add(Html.fromHtml("<font color=\"#cc0000\">减肥基础</font>已更新"));
+        mardatas.add(Html.fromHtml("<font color=\"#cc0000\">局部塑身</font>已更新"));
+        mardatas.add(Html.fromHtml("<font color=\"#cc0000\">中医减肥</font>已更新"));
         mardatas.addAll(list);
 
         textSwitcher = topBinding.getRoot().findViewById(R.id.cp_main_top_ts);
@@ -249,6 +261,7 @@ public class FragmentLotteryMain extends HandleFragment<FragmentCpMainTopBinding
         images.add(R.mipmap.banner_f2);
         images.add(R.mipmap.b3);
         images.add(R.mipmap.b5);
+        images.add(R.mipmap.banner04);
         banner.setImages(images).setImageLoader(new ImageLoader() {
             @Override
             public void displayImage(Context context, Object path, ImageView imageView) {

@@ -104,6 +104,18 @@ public class FragCpItemList extends HandleFragment<FragmentCategoryDetailBinding
     }
 
     private void initCallback() {
+        callBack = new ZPageLoadCallback<ZResponse<List<Football>>>(mAdapter,binding.recyclerView) {
+            @Override
+            public void requestAction(int page, int pageSize) {
+                RequestUtil.cacheUpdate(ZClient.getService(SportService.class).getNewsSpotrList(Integer.parseInt(reqKey), page, pageSize),callBack);
+            }
+
+            @Override
+            protected void onSuccess(ZResponse<List<Football>> data) {
+                super.onSuccess(data);
+            }
+        };
+
         callBack = new ZPageLoadCallback<ZResponse<List<Football>>>(mAdapter, binding.recyclerView, this) {
             @Override
             public void requestAction(int page, int pageSize) {
@@ -115,6 +127,7 @@ public class FragCpItemList extends HandleFragment<FragmentCategoryDetailBinding
                     callBack.setCachKey(null);
                 }
                 RequestUtil.cacheUpdate(ZClient.getService(SportService.class).getNewsSpotrList(Integer.parseInt(reqKey), page, pageSize),callBack);
+//                RequestUtil.cacheUpdate(ZClient.getService(SportService.class).getNewsSpotrList(Integer.parseInt(reqKey), page, pageSize),callBack);
                 if(callBackListener != null)
                     callBackListener.onStart();
             }
