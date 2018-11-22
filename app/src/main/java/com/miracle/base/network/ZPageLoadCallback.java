@@ -85,6 +85,10 @@ public abstract class ZPageLoadCallback<T> extends ZCallback<T> implements Swipe
                 mAdapter.loadMoreComplete();
             }
         } else {
+            if(zResponse.getCode() == 0 && !isLoadMore){
+                mAdapter.setNewData((List) zResponse.getData());
+//                handlePlaceHolder(zResponse.getCode());
+            }
             mAdapter.loadMoreEnd();
         }
     }
