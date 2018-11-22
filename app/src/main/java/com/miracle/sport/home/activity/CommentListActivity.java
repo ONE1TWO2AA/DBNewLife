@@ -111,8 +111,8 @@ public class CommentListActivity extends BaseActivity<SwipeRecyclerCommentBindin
         ZClient.getService(SportService.class).setClickClass(mAdapter.getItem(position).getComment_id(),1,"0").enqueue(new ZCallback<ZResponse<String>>() {
             @Override
             public void onSuccess(ZResponse<String> data) {
-                int clickNum = mAdapter.getItem(position).getComment_click_num();
-                mAdapter.getItem(position).setComment_click_num(clickNum+1);
+                int clickNum = mAdapter.getItem(position).getClick_num();
+                mAdapter.getItem(position).setClick_num(clickNum+1);
                 mAdapter.getItem(position).setClick(1);
                 mAdapter.notifyDataSetChanged();
             }

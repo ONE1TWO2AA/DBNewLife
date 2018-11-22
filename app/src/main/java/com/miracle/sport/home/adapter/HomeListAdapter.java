@@ -40,6 +40,17 @@ public class HomeListAdapter extends RecyclerViewAdapter<Football> {
 //                .into((ImageView) helper.getView(R.id.iv));
         String thumb = item.getThumb();
         if(null == item.getImages()){
+            if(TextUtils.isEmpty(thumb)){
+
+                helper.setGone(R.id.iv1_1, false);
+            }else{
+                GlideApp.with(context).load(thumb)
+                        .placeholder(R.mipmap.defaule_img)
+                        .error(R.mipmap.empty)
+                        .into((ImageView) helper.getView(R.id.iv1_1));
+                helper.setGone(R.id.iv1_1, true);
+
+            }
             helper.setGone(R.id.iv1_2, false);
             helper.setGone(R.id.iv2_2, false);
             helper.setGone(R.id.iv1, false);

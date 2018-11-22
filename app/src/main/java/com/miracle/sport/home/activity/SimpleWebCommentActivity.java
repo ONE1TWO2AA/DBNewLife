@@ -57,7 +57,7 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
 
     @Override
     public void initView() {
-        showLoadingDialog();
+//        showLoadingDialog();
         setTitle("资讯详情");
         emptyHear = CommonUtils.getString(R.string.icon_empty_heart);
         fullHear = CommonUtils.getString(R.string.icon_full_heart);
@@ -106,7 +106,7 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
     protected void onResume() {
         super.onResume();
 
-        reqDetail();
+
 
     }
 
@@ -169,7 +169,7 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
         ZClient.getService(SportService.class).setClickClass(mAdapter.getItem(position).getComment_id(), 1, "0").enqueue(new ZCallback<ZResponse<String>>() {
             @Override
             public void onSuccess(ZResponse<String> data) {
-                int clickNum = mAdapter.getItem(position).getComment_click_num();
+                int clickNum = mAdapter.getItem(position).getClick_num();
                 mAdapter.getItem(position).setClick_num(clickNum + 1);
                 mAdapter.getItem(position).setClick(1);
                 mAdapter.notifyDataSetChanged();
@@ -239,7 +239,7 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
         binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                reqDetail();
+                loadData();
             }
         });
 
@@ -332,7 +332,7 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
 
     @Override
     public void loadData() {
-
+        reqDetail();
     }
 
 //    private ZCallback<String> likeCallback = new ZCallback<ZResponse>() {
@@ -391,7 +391,7 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
                             toUser = "";
                             editText.setText("");
                             CommonUtils.hideSoftInput(editText.getContext(), binding.includeSendComment.etCommentContent);
-                            reqDetail();
+                            loadData();
                         }
 
                         @Override
