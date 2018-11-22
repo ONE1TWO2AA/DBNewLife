@@ -127,9 +127,9 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding> {
             @Override
             public void onRefresh() {
                 if (hotPostFragment.isVisible())
-                    hotPostFragment.refresh();
+                    hotPostFragment.loadData();
                 if (latestPostFragment.isVisible())
-                    latestPostFragment.refresh();
+                    latestPostFragment.loadData();
                 reqMyCircle();
             }
         });

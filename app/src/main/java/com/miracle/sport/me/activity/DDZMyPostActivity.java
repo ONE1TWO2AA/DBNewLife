@@ -40,7 +40,7 @@ public class DDZMyPostActivity extends BaseActivity<SwipeRecyclerBinding> {
                 ZClient.getService(SportService.class).getMyPostList(page, limit).enqueue(callBack);
             }
         };
-        callBack.setBaseActivity(this);
+        callBack.setNetStatusUI(this);
         callBack.initSwipeRefreshLayout(binding.swipeRefreshLayout);
     }
 

@@ -19,15 +19,11 @@ public abstract class ZCallback<T> implements Callback<T> {
     protected Dialog mDialog;
     protected String mCachKey;
 
-    protected BaseActivity mBaseActivity;
     protected INetStatusUI mNetStatusUI;
 
     public ZCallback() {
     }
 
-    public ZCallback(BaseActivity baseActivity) {
-        mBaseActivity = baseActivity;
-    }
 
     public ZCallback(INetStatusUI netStnatusUI) {
         mNetStatusUI = netStnatusUI;
@@ -41,9 +37,9 @@ public abstract class ZCallback<T> implements Callback<T> {
         this.mSwipeRefreshLayout = swipeRefreshLayout;
     }
 
-    public ZCallback(SwipeRefreshLayout swipeRefreshLayout, BaseActivity baseActivity) {
+    public ZCallback(SwipeRefreshLayout swipeRefreshLayout, INetStatusUI iNetStatusUI) {
         this.mSwipeRefreshLayout = swipeRefreshLayout;
-        mBaseActivity = baseActivity;
+        mNetStatusUI = iNetStatusUI;
     }
 
     public ZCallback(Dialog dialog) {
@@ -56,14 +52,6 @@ public abstract class ZCallback<T> implements Callback<T> {
 
     public void setNetStatusUI(INetStatusUI mNetStatusUI) {
         this.mNetStatusUI = mNetStatusUI;
-    }
-
-    public BaseActivity getBaseActivity() {
-        return mBaseActivity;
-    }
-
-    public void setBaseActivity(BaseActivity baseActivity) {
-        mBaseActivity = baseActivity;
     }
 
     public SwipeRefreshLayout getSwipeRefreshLayout() {
@@ -110,14 +98,6 @@ public abstract class ZCallback<T> implements Callback<T> {
     }
 
     public void handlePlaceHolder(int code) {
-        if (mBaseActivity != null) {
-            if (code == 200) {
-                mBaseActivity.showContent();
-            } else {
-                mBaseActivity.showEmpty();
-            }
-        }
-
         if (mNetStatusUI != null) {
             if (code == 200) {
                 mNetStatusUI.showContent();
@@ -135,10 +115,6 @@ public abstract class ZCallback<T> implements Callback<T> {
             ToastUtil.toast(t.getMessage().substring(2));
         }
         onFinish(call);
-        if (mBaseActivity != null) {
-            mBaseActivity.showError();
-        }
-
         if (mNetStatusUI != null) {
             mNetStatusUI.showError();
         }

@@ -70,8 +70,11 @@ public class HotPostFragment extends BaseFragment<FragmentHotpostBinding> {
         };
         if (isCommunityActivity) {
             callBack.setSwipeRefreshLayout(((CommunityActivity) getActivity()).getSwipeRefreshLayout());
+            callBack.setNetStatusUI((CommunityActivity) getActivity());
         } else {
             callBack.setSwipeRefreshLayout(((CommunityFragment) getParentFragment()).getSwipeRefreshLayout());
+            callBack.setNetStatusUI(this);
+
         }
     }
 
@@ -110,10 +113,11 @@ public class HotPostFragment extends BaseFragment<FragmentHotpostBinding> {
     @Override
     public void onResume() {
         super.onResume();
-        refresh();
+        loadData();
     }
 
-    public void refresh() {
+    @Override
+    public void loadData() {
         callBack.onRefresh();
     }
 
@@ -124,6 +128,6 @@ public class HotPostFragment extends BaseFragment<FragmentHotpostBinding> {
     public void switchCircleId(int id) {
         circleId = id;
         mAdapter.setNewData(null);
-        refresh();
+        loadData();
     }
 }

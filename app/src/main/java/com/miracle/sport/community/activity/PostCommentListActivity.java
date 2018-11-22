@@ -46,7 +46,7 @@ public class PostCommentListActivity extends BaseActivity<SwipeRecyclerBinding> 
                 ZClient.getService(SportService.class).getPostCommentList(id, page, pageSize).enqueue(this);
             }
         };
-        callback.setBaseActivity(this);
+        callback.setNetStatusUI(this);
         callback.initSwipeRefreshLayout(binding.swipeRefreshLayout);
     }
 

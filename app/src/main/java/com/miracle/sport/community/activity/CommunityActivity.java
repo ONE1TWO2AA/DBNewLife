@@ -86,9 +86,9 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding> {
             @Override
             public void onRefresh() {
                 if (hotPostFragment.isVisible())
-                    hotPostFragment.refresh();
+                    hotPostFragment.loadData();
                 if (latestPostFragment.isVisible())
-                    latestPostFragment.refresh();
+                    latestPostFragment.loadData();
             }
         });
     }

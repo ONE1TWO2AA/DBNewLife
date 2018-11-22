@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <com.miracle.base.view.TitleBar
+                android:id="@+id/titlebar_frag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                android:id="@+id/titlebar_frag"
                 app:TitleBar_Background="@color/title_color"
                 app:TitleBar_TextColor="@color/white"
                 app:TitleBar_Title="" />
@@ -24,6 +23,7 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <FrameLayout
                     android:id="@+id/baseFragContainer"
                     android:layout_width="match_parent"
@@ -33,7 +33,8 @@
                 <com.miracle.base.view.ZPlaceHolder
                     android:id="@+id/placeHolder"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:visibility="gone" />
             </FrameLayout>
         </LinearLayout>
 

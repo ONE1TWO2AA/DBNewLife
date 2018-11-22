@@ -89,7 +89,7 @@ public abstract class ZPageLoadCallback<T> extends ZCallback<T> implements Swipe
                 mAdapter.loadMoreEnd();
             } else {
                 mAdapter.setNewData(null);
-                mBaseActivity.showEmpty();
+                mNetStatusUI.showEmpty();
             }
         }
     }
@@ -101,7 +101,6 @@ public abstract class ZPageLoadCallback<T> extends ZCallback<T> implements Swipe
         onFinish(call);
         mAdapter.loadMoreFail();
 
-        checkBaseActUIStatus();
         checkINetUIStatus();
     }
 
@@ -114,28 +113,8 @@ public abstract class ZPageLoadCallback<T> extends ZCallback<T> implements Swipe
         }
     }
 
-    private void checkBaseActUIStatus() {
-        if (mBaseActivity == null) return;
-        if (mAdapter.getData().isEmpty()) {
-            mBaseActivity.showError();
-        } else {
-            mBaseActivity.showContent();
-        }
-    }
-
     @Override
     public void handlePlaceHolder(int code) {
-        if (mBaseActivity != null) {
-            if (code == 200) {
-                mBaseActivity.showContent();
-            } else {
-                if (mAdapter.getData().isEmpty()) {
-                    mBaseActivity.showEmpty();
-                } else {
-                    mBaseActivity.showContent();
-                }
-            }
-        }
 
         if (mNetStatusUI != null) {
             if (code == 200) {

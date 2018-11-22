@@ -19,8 +19,6 @@ import com.miracle.sport.me.adapter.CollectionsListAdapter;
 
 import java.util.List;
 
-import retrofit2.Call;
-
 public class MyCollectionsActivity extends BaseActivity<SwipeRecyclerBinding> {
 
     private CollectionsListAdapter mAdapter;
@@ -51,7 +49,7 @@ public class MyCollectionsActivity extends BaseActivity<SwipeRecyclerBinding> {
         };
         callBack.setCachKey("LotteryMyCollections");
         callBack.setDialog(loadingDialog);
-        callBack.setBaseActivity(this);
+        callBack.setNetStatusUI(this);
         callBack.initSwipeRefreshLayout(binding.swipeRefreshLayout);
     }
 

@@ -74,7 +74,7 @@ public class CommentListActivity extends BaseActivity<SwipeRecyclerCommentBindin
             }
         };
         callBack.setDialog(loadingDialog);
-        callBack.setBaseActivity(this);
+        callBack.setNetStatusUI(this);
         callBack.initSwipeRefreshLayout(binding.swipeRefreshLayout);
 
         if(1 == articleDetailBean.getClick()){
