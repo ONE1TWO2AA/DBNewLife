@@ -111,7 +111,7 @@ public abstract class ZCallback<T> implements Callback<T> {
 
     @Override
     public void onFailure(Call<T> call, Throwable t) {
-        if (t.getMessage().startsWith("DB")) {
+        if (t.getMessage() != null && t.getMessage().startsWith("DB")) {
             ToastUtil.toast(t.getMessage().substring(2));
         }
         onFinish(call);
