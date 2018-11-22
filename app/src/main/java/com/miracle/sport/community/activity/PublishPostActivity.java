@@ -60,7 +60,7 @@ public class PublishPostActivity extends BaseActivity<ActivityPublishPostBinding
     @Override
     public void initView() {
         showContent();
-        setTitle("发攻略");
+        setTitle("发帖子");
         setRight("完成", Color.WHITE, 16);
         setRightClickListener(new View.OnClickListener() {
             @Override

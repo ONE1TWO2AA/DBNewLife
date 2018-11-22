@@ -31,6 +31,7 @@ public class ZImagePreviewer extends Dialog {
         super(context, R.style.commondialog);
         binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.image_dialog, null, false);
         binding.recyclerView.setAdapter(mAdapter = new ImageAdapter());
+        binding.recyclerView.setHasFixedSize(true);
         new LinearSnapHelper().attachToRecyclerView(binding.recyclerView);
         setContentView(binding.getRoot());
     }
