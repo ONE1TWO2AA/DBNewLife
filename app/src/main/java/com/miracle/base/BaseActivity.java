@@ -49,7 +49,7 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatA
             @Override
             public void onClick(View v) {
                 if(mBaseBinding.placeHolder.getStatus() != ZPlaceHolder.STATUS_LOADING) {
-                    mBaseBinding.placeHolder.setLoading();
+                    showLoading();
                     loadData();
                 }
             }

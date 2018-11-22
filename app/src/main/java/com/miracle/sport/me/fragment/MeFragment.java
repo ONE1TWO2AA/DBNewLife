@@ -112,23 +112,13 @@ public class MeFragment extends BaseFragment<F4Ddz2Binding> {
                 }
             }
         });
-
-        ZClient.getService(SportService.class).getMyCircleList().enqueue(new ZCallback<ZResponse<List<MyCircleBean>>>() {
-            @Override
-            protected void onSuccess(ZResponse<List<MyCircleBean>> zResponse) {
-                if (zResponse != null && zResponse.getTotal() > 0) {
-                    binding.ibmyCircle.setText(MessageFormat.format("我的圈子{0}", zResponse.getTotal()));
-                }
-            }
-        });
-
         ZClient.getService(SportService.class).getMyCircleList().enqueue(new ZCallback<ZResponse<List<MyCircleBean>>>() {
             @Override
             public void onSuccess(ZResponse<List<MyCircleBean>> zResponse) {
                 if (zResponse != null) {
                     List<MyCircleBean> data = zResponse.getData();
                     if (data != null && !data.isEmpty()) {
-                        binding.ibmyCircle.setText(MessageFormat.format("我的收藏{0}", data.size()));
+                        binding.ibmyCircle.setText(MessageFormat.format("我的圈子{0}", data.size()));
                     }
                 }
             }
