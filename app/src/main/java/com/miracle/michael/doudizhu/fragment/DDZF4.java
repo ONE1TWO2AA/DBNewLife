@@ -34,7 +34,6 @@ public class DDZF4 extends BaseFragment<F4Ddz2Binding> {
 
     @Override
     public void initView() {
-        binding.titleBar.showLeft(drawerLayout != null);
         goodView = new GoodView(mContext);
 
     }
@@ -71,13 +70,6 @@ public class DDZF4 extends BaseFragment<F4Ddz2Binding> {
             }
         });
 
-        binding.titleBar.setLeftClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (drawerLayout != null)
-                    drawerLayout.openDrawer(Gravity.START);
-            }
-        });
     }
 
     @Override

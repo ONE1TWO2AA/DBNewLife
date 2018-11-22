@@ -43,6 +43,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:ZRadioButton_Icon="@string/icon_home_line"
+                app:ZRadioButton_IconTextSize="18sp"
                 app:ZRadioButton_Text="首页" />
 
             <com.miracle.base.view.zradiogroup.ZRadioButton
@@ -50,18 +51,18 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="-2dp"
                 android:layout_weight="1"
-                app:ZRadioButton_Icon="@string/icon_papger_line"
-                app:ZRadioButton_IconTextSize="22sp"
-                app:ZRadioButton_Text="精选" />
+                app:ZRadioButton_Icon="@string/icon_main_zixun"
+                app:ZRadioButton_IconTextSize="18sp"
+                app:ZRadioButton_Text="资讯" />
 
             <com.miracle.base.view.zradiogroup.ZRadioButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginTop="-2dp"
                 android:layout_weight="1"
-                app:ZRadioButton_Icon="@string/icon_book_line"
-                app:ZRadioButton_IconTextSize="22sp"
-                app:ZRadioButton_Text="攻略" />
+                app:ZRadioButton_Icon="@string/icon_main_faxian"
+                app:ZRadioButton_IconTextSize="18sp"
+                app:ZRadioButton_Text="发现" />
 
             <LinearLayout
                 android:id="@+id/rlGroupChat"
@@ -70,25 +71,24 @@
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
-                android:visibility="visible"
-                >
+                android:visibility="visible">
 
                 <com.miracle.base.view.IconFontTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="@string/icon_chat_line"
+                    android:text="@string/icon_main_liaotianshi"
                     android:textColor="@drawable/selector_tab_text"
-                    android:textSize="18sp" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
                     android:layout_marginBottom="4dp"
+                    android:layout_marginTop="2dp"
                     android:gravity="center"
-                    android:text="交流"
+                    android:text="聊天室"
                     android:textColor="@drawable/selector_tab_text"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -98,6 +98,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:ZRadioButton_Icon="@string/icon_me_line"
+                app:ZRadioButton_IconTextSize="18sp"
                 app:ZRadioButton_Text="我的" />
 
 

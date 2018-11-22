@@ -49,6 +49,7 @@ public class MeInfoActivity extends BaseActivity<ActivityMeInfoBinding> {
     @Override
     public void initView() {
         setTitle("修改头像");
+        showContent();
         userInfo = (UserInfoBean) getIntent().getSerializableExtra(Constant.USER_INFO);
         GlideApp.with(this).load(userInfo.getImg()).placeholder(R.mipmap.default_head).into(binding.ivHeadImg);
         binding.ibNickName.setText(userInfo.getNickname());

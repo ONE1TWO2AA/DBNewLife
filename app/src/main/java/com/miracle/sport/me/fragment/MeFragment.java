@@ -24,6 +24,10 @@ import com.miracle.base.network.ZService;
 import com.miracle.base.util.CommonUtils;
 import com.miracle.base.util.ToastUtil;
 import com.miracle.databinding.F4Ddz2Binding;
+import com.miracle.sport.SportService;
+import com.miracle.sport.community.bean.MyCircleBean;
+import com.miracle.sport.community.bean.PostBean;
+import com.miracle.sport.home.bean.Football;
 import com.miracle.sport.me.activity.DDZMyCircleActivity;
 import com.miracle.sport.me.activity.DDZMyPostActivity;
 import com.miracle.sport.me.activity.DDZMyReplyActivity;
@@ -33,9 +37,12 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wx.goodview.GoodView;
 
 import java.lang.ref.WeakReference;
+import java.text.MessageFormat;
+import java.util.List;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import retrofit2.Call;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -43,7 +50,6 @@ public class MeFragment extends BaseFragment<F4Ddz2Binding> {
     private SHandler handler;
 
     private UserInfoBean userInfo;
-    private GoodView goodView;
     private RxPermissions rxPermission;
     private Disposable subscribe;
     private boolean isGranted;
@@ -56,11 +62,8 @@ public class MeFragment extends BaseFragment<F4Ddz2Binding> {
 
     @Override
     public void initView() {
-        binding.titleBar.showLeft(drawerLayout != null);
-        goodView = new GoodView(mContext);
         dialogProgress = new ProgressDialog(mContext);
         handler = new SHandler(this);
-
         rxPermission = new RxPermissions(getActivity());
     }
 
@@ -95,10 +98,52 @@ public class MeFragment extends BaseFragment<F4Ddz2Binding> {
                 @Override
                 public void onSuccess(ZResponse<UserInfoBean> data) {
                     userInfo = data.getData();
-                    binding.tvName.setText(userInfo.getNickname() + "\n" + userInfo.getUsername());
+                    binding.tvName.setText(userInfo.getNickname());
+                    binding.tvPhone.setText(userInfo.getUsername());
                     GlideApp.with(mContext).load(userInfo.getImg()).placeholder(R.mipmap.default_head).into(binding.ivHeadImg);
                 }
             });
+
+        ZClient.getService(SportService.class).getMyPostList(1, 10).enqueue(new ZCallback<ZResponse<List<PostBean>>>() {
+            @Override
+            protected void onSuccess(ZResponse<List<PostBean>> zResponse) {
+                if (zResponse != null) {
+                    binding.ibmyPost.setText(MessageFormat.format("我的发帖{0}", zResponse.getTotal()));
+                }
+            }
+        });
+
+        ZClient.getService(SportService.class).getMyCircleList().enqueue(new ZCallback<ZResponse<List<MyCircleBean>>>() {
+            @Override
+            protected void onSuccess(ZResponse<List<MyCircleBean>> zResponse) {
+                if (zResponse != null && zResponse.getTotal() > 0) {
+                    binding.ibmyCircle.setText(MessageFormat.format("我的圈子{0}", zResponse.getTotal()));
+                }
+            }
+        });
+
+        ZClient.getService(SportService.class).getMyCircleList().enqueue(new ZCallback<ZResponse<List<MyCircleBean>>>() {
+            @Override
+            public void onSuccess(ZResponse<List<MyCircleBean>> zResponse) {
+                if (zResponse != null) {
+                    List<MyCircleBean> data = zResponse.getData();
+                    if (data != null && !data.isEmpty()) {
+                        binding.ibmyCircle.setText(MessageFormat.format("我的收藏{0}", data.size()));
+                    }
+                }
+            }
+        });
+
+        ZClient.getService(SportService.class).getMycollections(1, 10).enqueue(new ZCallback<ZResponse<List<Football>>>() {
+            @Override
+            protected void onSuccess(ZResponse<List<Football>> zResponse) {
+                if (zResponse != null && zResponse.getTotal() > 0) {
+                    binding.ibBailManage.setText(MessageFormat.format("我的收藏{0}", zResponse.getTotal()));
+
+                }
+            }
+        });
+
     }
 
     @Override
@@ -123,13 +168,6 @@ public class MeFragment extends BaseFragment<F4Ddz2Binding> {
         binding.appUpdate.setOnClickListener(this);
         binding.ibClearCache.setOnClickListener(this);
 
-        binding.titleBar.setLeftClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (drawerLayout != null)
-                    drawerLayout.openDrawer(Gravity.START);
-            }
-        });
     }
 
     @Override
@@ -237,12 +275,6 @@ public class MeFragment extends BaseFragment<F4Ddz2Binding> {
 
     }
 
-    private DrawerLayout drawerLayout;
-
-    public MeFragment setDrawer(DrawerLayout drawerLayout) {
-        this.drawerLayout = drawerLayout;
-        return this;
-    }
 
     private static final class SHandler extends Handler {
         private WeakReference<MeFragment> weakReference;

@@ -25,7 +25,7 @@
     <string name="icon_chatroom">&#xe611;</string>
     <string name="icon_clear_cache">&#xe660;</string>
     <string name="icon_check_update">&#xe601;</string>
-    <string name="icon_share">&#xe624;</string>
+    <string name="icon_share">&#xe65f;</string>
     <string name="icon_auto_login">&#xe60f;</string>
     <string name="icon_trend_map">&#xe6d2;</string>
     <string name="icon_my_collections">&#xe62e;</string>
@@ -71,6 +71,10 @@
     <string name="icon_chat_line">&#xe61d;</string>
     <string name="icon_me_line">&#xe60c;</string>
 
+    <!--生活-->
+    <string name="icon_main_zixun">&#xe670;</string>
+    <string name="icon_main_faxian">&#xe623;</string>
+    <string name="icon_main_liaotianshi">&#xe659;</string>
 
 
     <!--登录 注册-->

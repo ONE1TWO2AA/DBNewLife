@@ -7,7 +7,7 @@ public class ZResponse<T> {
     private String message;
     private Integer page;
     private Integer limit;
-    private Integer total;
+    private int total;
     private Integer totalPage;
     private T data;
 
@@ -43,11 +43,11 @@ public class ZResponse<T> {
         this.limit = limit;
     }
 
-    public Integer getTotal() {
+    public int getTotal() {
         return total;
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(int total) {
         this.total = total;
     }
 

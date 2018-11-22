@@ -89,9 +89,9 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding> {
 
     private void initBanner() {
         images = new ArrayList<>();
-        images.add("file:///android_asset/lottery/fish1.jpg");
-        images.add("file:///android_asset/lottery/fish2.jpg");
-        images.add("file:///android_asset/lottery/fish3.jpg");
+        images.add("file:///android_asset/lottery/banner01.png");
+        images.add("file:///android_asset/lottery/banner02.png");
+        images.add("file:///android_asset/lottery/banner03.png");
         binding.banner.setImages(images).setImageLoader(new ImageLoader() {
             @Override
             public void displayImage(Context context, Object path, ImageView imageView) {
