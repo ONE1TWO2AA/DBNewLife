@@ -52,7 +52,6 @@ public class LatestPostFragment extends BaseFragment<FragmentHotpostBinding> {
         callBack = new ZPageLoadCallback<ZResponse<List<PostBean>>>(mAdapter, binding.recyclerView) {
             @Override
             public void requestAction(int page, int pageSize) {
-                callBack.setCachKey("LatestPostFragment" + circleId + page);
                 if (isCommunityActivity) {
                     ZClient.getService(SportService.class).getPostList(null, circleId, page, pageSize).enqueue(this);
                 } else {
@@ -61,6 +60,7 @@ public class LatestPostFragment extends BaseFragment<FragmentHotpostBinding> {
             }
 
         };
+        callBack.setCachKey("LatestPostFragment" + circleId );
         if (isCommunityActivity) {
             callBack.setSwipeRefreshLayout(((CommunityActivity) getActivity()).getSwipeRefreshLayout());
             callBack.setNetStatusUI((CommunityActivity) getActivity());
