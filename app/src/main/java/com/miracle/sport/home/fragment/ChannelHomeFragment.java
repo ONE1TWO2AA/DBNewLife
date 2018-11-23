@@ -121,6 +121,7 @@ public class ChannelHomeFragment extends BaseFragment<FragmentCategoryHomeBindin
         callBack=new ZPageLoadCallback<ZResponse<List<Football>>>(mAdapter,binding.recyclerView) {
             @Override
             public void requestAction(int page, int pageSize) {
+                callBack.setCachKey("ChanneHomeFragment" + reqKey+page);
                 RequestUtil.cacheUpdate(ZClient.getService(SportService.class).getNewsSpotrList(reqKey, page, pageSize),callBack);
             }
 
@@ -136,7 +137,7 @@ public class ChannelHomeFragment extends BaseFragment<FragmentCategoryHomeBindin
 //                RequestUtil.request1(ZClient.getService(SportService.class).getNewsList(reqKey, page, pageSize), callBack);
 //            }
 //        };
-        callBack.setCachKey("ChanneHomeFragment" + reqKey);
+
         callBack.initSwipeRefreshLayout(binding.swipeRefreshLayout);
     }
 

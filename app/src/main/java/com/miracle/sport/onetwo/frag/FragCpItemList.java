@@ -120,12 +120,13 @@ public class FragCpItemList extends HandleFragment<FragmentCategoryDetailBinding
             @Override
             public void requestAction(int page, int pageSize) {
 //                ZClient.getService(CPServer.class).cpList(page, pageSize, "cp", reqKey).enqueue(this);
-                if(reqKey.equals("1")) {//只有首页展示的频道做缓存
-                    callBack.setCachKey("homepage_fcil_key");
-                }
-                else {
-                    callBack.setCachKey(null);
-                }
+//                if(reqKey.equals("1")) {//只有首页展示的频道做缓存
+//                    callBack.setCachKey("homepage_fcil_key");
+//                }
+//                else {
+//                    callBack.setCachKey(null);
+//                }
+                callBack.setCachKey("homepage_fcil_key" + reqKey+page);
                 RequestUtil.cacheUpdate(ZClient.getService(SportService.class).getNewsSpotrList(Integer.parseInt(reqKey), page, pageSize),callBack);
 //                RequestUtil.cacheUpdate(ZClient.getService(SportService.class).getNewsSpotrList(Integer.parseInt(reqKey), page, pageSize),callBack);
                 if(callBackListener != null)
