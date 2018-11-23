@@ -95,7 +95,10 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding> {
 
     @Override
     public void loadData() {
-
+        if (hotPostFragment.isVisible())
+            hotPostFragment.loadData();
+        if (latestPostFragment.isVisible())
+            latestPostFragment.loadData();
     }
 
     @Override
