@@ -156,7 +156,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements O
 //                    }
 //                });
 
-        RequestUtil.cachePrior(ZClient.getService(SportService.class).getSearchKeys(), new ZCallback<ZResponse<List<ChannerlKey>>>("CHANNER1key") {
+//        RequestUtil.cachePrior(ZClient.getService(SportService.class).getSearchKeys(), new ZCallback<ZResponse<List<ChannerlKey>>>("CHANNER1key") {
+        RequestUtil.cacheUpdate(ZClient.getService(SportService.class).getSearchKeys(), new ZCallback<ZResponse<List<ChannerlKey>>>("CHANNER1key") {
             @Override
             protected void onSuccess(ZResponse<List<ChannerlKey>> zResponse) {
                 mNetChannels = zResponse.getData();
