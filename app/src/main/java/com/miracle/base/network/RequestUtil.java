@@ -1,11 +1,13 @@
 package com.miracle.base.network;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.miracle.base.util.GsonUtil;
 import com.miracle.base.util.sqlite.SQLiteUtil;
 
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Proxy;
 import java.lang.reflect.Type;
 
 import retrofit2.Call;
@@ -22,15 +24,34 @@ public class RequestUtil {
      * @param callback
      */
     public static void cacheUpdate(Call call, ZCallback callback) {
-        String key = callback.getCachKey();
+        ZCallbackDecorate proxy = null;
+        if(!(callback instanceof ZCallbackDecorate)) {
+            proxy = new ZCallbackDecorate(callback);
+            proxy.setRunnable(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d("xxxxxxxxx", "run xxxzzz 111111111");
+                }
+            });
+
+            proxy.setRunnable2(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d("xxxxxxxxx", "run xxxzzz 222222222");
+                }
+            });
+        }
+
+        
+        String key = proxy.getCachKey();
         if (TextUtils.isEmpty(key)) {
-            call.enqueue(callback);
+            call.enqueue(proxy);
         } else {
-            Object body = parseJson(SQLiteUtil.getString(key), callback);
+            Object body = parseJson(SQLiteUtil.getString(key), proxy);
             if (body != null) {
                 callback.onCacheSuccess(body);
             }
-            call.enqueue(callback);
+            call.enqueue(proxy);
         }
     }
 
