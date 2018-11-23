@@ -109,6 +109,9 @@ public abstract class ZCallback<T> implements Callback<T> {
 
     protected abstract void onSuccess(T zResponse);
 
+    protected void onCacheSuccess(T zResponse) {
+    }
+
     @Override
     public void onFailure(Call<T> call, Throwable t) {
         if (t.getMessage() != null && t.getMessage().startsWith("DB")) {

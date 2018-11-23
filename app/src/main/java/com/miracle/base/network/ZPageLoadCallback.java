@@ -94,6 +94,31 @@ public abstract class ZPageLoadCallback<T> extends ZCallback<T> implements Swipe
         }
     }
 
+    @Override
+    protected void onCacheSuccess(T data) {
+        ZResponse zResponse = ((ZResponse) data);
+        //非200即0
+        if (zResponse.getCode() == 200) {
+            if (isLoadMore) {
+                mAdapter.addData((List) zResponse.getData());
+            } else {
+                mAdapter.setNewData((List) zResponse.getData());
+            }
+            if (mAdapter.getData().size() == zResponse.getTotal()) {
+                mAdapter.loadMoreEnd();
+            } else {
+                mAdapter.loadMoreComplete();
+            }
+        } else {
+            if (isLoadMore) {
+                mAdapter.loadMoreEnd();
+            } else {
+                mAdapter.setNewData(null);
+                mNetStatusUI.showEmpty();
+            }
+        }
+
+    }
 
     @Override
     public void onFailure(Call call, Throwable t) {

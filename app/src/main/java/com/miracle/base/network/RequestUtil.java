@@ -28,7 +28,7 @@ public class RequestUtil {
         } else {
             Object body = parseJson(SQLiteUtil.getString(key), callback);
             if (body != null) {
-                callback.onSuccess(body);
+                callback.onCacheSuccess(body);
             }
             call.enqueue(callback);
         }
@@ -48,7 +48,7 @@ public class RequestUtil {
         } else {
             Object body = parseJson(SQLiteUtil.getString(key), callback);
             if (body != null) {
-                callback.onSuccess(body);
+                callback.onCacheSuccess(body);
             } else {
                 call.enqueue(callback);
             }
