@@ -42,12 +42,13 @@ public class MyCollectionsActivity extends BaseActivity<SwipeRecyclerBinding> {
         callBack = new ZPageLoadCallback<ZResponse<List<Football>>>(mAdapter, binding.recyclerView) {
             @Override
             public void requestAction(int page, int limit) {
+                callBack.setCachKey("LotteryMyCollections"+page);
 //                ZClient.getService(SportService.class).getMycollections(page,limit).enqueue(callBack);
                 RequestUtil.cacheUpdate(ZClient.getService(SportService.class).getMycollections(page,limit),callBack);
 
             }
         };
-        callBack.setCachKey("LotteryMyCollections");
+
         callBack.setDialog(loadingDialog);
         callBack.setNetStatusUI(this);
         callBack.initSwipeRefreshLayout(binding.swipeRefreshLayout);
