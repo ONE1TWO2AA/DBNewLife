@@ -3,6 +3,7 @@ package com.miracle.base.network;
 import android.app.Dialog;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.miracle.base.BaseActivity;
 import com.miracle.base.util.GsonUtil;
@@ -80,9 +81,12 @@ public abstract class ZCallback<T> implements Callback<T> {
 
     @Override
     public void onResponse(Call<T> call, Response<T> response) {
+        Log.e("ZZZ", "请求:" + call.request().url().toString());
+
         T body = response.body();
         if (body instanceof ZResponse) {
             ZResponse zResponse = (ZResponse) body;
+            Log.e("ZZZ", "返回:" + GsonUtil.obj2Json(body));
             int code = zResponse.getCode();
             if (code != 200 && code != 0) {
                 onFailure(call, new Throwable("DB" + zResponse.getMessage()));
@@ -94,6 +98,7 @@ public abstract class ZCallback<T> implements Callback<T> {
             }
         } else {
             onFailure(call, new Throwable("DB返回数据格式不正确！"));
+            Log.e("ZZZ", "返回:错误的数据！");
         }
     }
 
@@ -116,6 +121,9 @@ public abstract class ZCallback<T> implements Callback<T> {
     public void onFailure(Call<T> call, Throwable t) {
         if (t.getMessage() != null && t.getMessage().startsWith("DB")) {
             ToastUtil.toast(t.getMessage().substring(2));
+        } else {
+            Log.e("ZZZ", "请求:" + call.request().url().toString());
+            Log.e("ZZZ", "返回:" + t.getMessage());
         }
         onFinish(call);
         if (mNetStatusUI != null) {

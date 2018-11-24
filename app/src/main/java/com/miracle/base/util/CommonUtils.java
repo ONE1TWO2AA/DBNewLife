@@ -1601,18 +1601,18 @@ public class CommonUtils {
                     EMClient.getInstance().login(username, pwd, new EMCallBack() {
                         @Override
                         public void onSuccess() {
-                            Log.e("ZZZ", "onSuccess:");
+//                            Log.e("ZZZ", "onSuccess:");
                             getGroupId();
                         }
 
                         @Override
                         public void onError(int i, String s) {
-                            Log.e("ZZZ", "onError:" + s);
+//                            Log.e("ZZZ", "onError:" + s);
                         }
 
                         @Override
                         public void onProgress(int i, String s) {
-                            Log.e("ZZZ", "onProgress:" + s);
+//                            Log.e("ZZZ", "onProgress:" + s);
                         }
                     });
                 }

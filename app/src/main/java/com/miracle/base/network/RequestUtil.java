@@ -3,14 +3,17 @@ package com.miracle.base.network;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.baidu.platform.comapi.map.A;
 import com.miracle.base.util.GsonUtil;
 import com.miracle.base.util.sqlite.SQLiteUtil;
 
+import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Proxy;
 import java.lang.reflect.Type;
 
 import retrofit2.Call;
+import retrofit2.Callback;
 
 /**
  * Created by Michael on 2018/11/2 18:43 (星期五)
@@ -24,8 +27,27 @@ public class RequestUtil {
      * @param callback
      */
     public static void cacheUpdate(Call call, ZCallback callback) {
+        String key = callback.getCachKey();
+        if (TextUtils.isEmpty(key)) {
+            call.enqueue(callback);
+        } else {
+            Object body = parseJson(SQLiteUtil.getString(key), callback);
+            if (body != null) {
+                callback.onCacheSuccess(body);
+            }
+            call.enqueue(callback);
+        }
+    }
+
+    /**
+     * @param call
+     * @param callback
+     * @TODO 先取请求数据, 失败了使用缓存
+     */
+    public static void requestIfFailedUseCache(Call call, ZCallback callback) {
+
         ZCallbackDecorate proxy = null;
-        if(!(callback instanceof ZCallbackDecorate)) {
+        if (!(callback instanceof ZCallbackDecorate)) {
             proxy = new ZCallbackDecorate(callback);
             proxy.setRunnable(new Runnable() {
                 @Override
@@ -40,9 +62,9 @@ public class RequestUtil {
                     Log.d("xxxxxxxxx", "run xxxzzz 222222222");
                 }
             });
+        } else {
+            proxy = (ZCallbackDecorate) callback;
         }
-
-        
         String key = proxy.getCachKey();
         if (TextUtils.isEmpty(key)) {
             call.enqueue(proxy);
@@ -53,6 +75,7 @@ public class RequestUtil {
             }
             call.enqueue(proxy);
         }
+
     }
 
     /**
